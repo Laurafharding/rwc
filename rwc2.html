@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="shortcut icon" href="#">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Rugby World Cup 🏉</title>
+
+  <script src="//d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-path.v1.min.js"></script>
+  <script src="https://d3js.org/d3-shape.v1.min.js"></script>
+  <style>
+  body{
+    font-family: "Segoe UI", sans-serif;
+    width:900px;
+    align-content: center;
+  }
+  h1, h2{
+    text-align: center;
+  }
+  .pool {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width:350px;
+  }
+
+  .pool td, .pool th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  .pool tr:nth-child(even){background-color: #f2f2f2;}
+
+  .pool tr:hover {background-color: #ddd;}
+
+  .pool th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    color: white;
+  }
+  #a th{
+    background-color: #4CAF50;
+  }
+  #b th{
+    background-color: orange;
+  }
+  #c th{
+    background-color: blue;
+  }
+  #d th{
+    background-color: purple;
+}
+#divbox{
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <div id="chart">
+    <h1>Rugby World Cup 2019</h1>
+    <h2>Aiimi Sweepstake</h2>
+  <div id="divbox" style="float:left" width="50%">
+    <h2>Pool A</h2>
+        <table style="display:inline-table" class="pool a" id="a">
+      <tr>
+        <th>Team</th>
+        <th>Person</th>
+      </tr>
+      <tr>
+        <td>Samoa</td>
+        <td>Tom</td>
+      </tr>
+      <tr>
+        <td>Ireland</td>
+        <td>Matt</td>
+      </tr>
+      <tr>
+        <td>Scotland</td>
+        <td>David</td>
+      </tr>
+      <tr>
+        <td>Japan</td>
+        <td>Steve O'D</td>
+      </tr>
+      <tr>
+        <td>Russia</td>
+        <td>Ariadne</td>
+      </tr>
+    </table>
+  </div>
+  <div id="divbox"style="float:right">
+    <h2>Pool B</h2>
+    <table style="display:inline-table"class="pool b" id="b">
+      <tr>
+        <th>Team</th>
+        <th>Person</th>
+      </tr>
+      <tr>
+        <td>New Zealand</td>
+        <td>Nick</td>
+      </tr>
+      <tr>
+        <td>South Africa</td>
+        <td>Gill</td>
+      </tr>
+      <tr>
+        <td>Italy</td>
+        <td>Lisa</td>
+      </tr>
+      <tr>
+        <td>Namibia</td>
+        <td>Charanjeet</td>
+      </tr>
+      <tr>
+        <td>Canada</td>
+        <td>Char</td>
+      </tr>
+    </table>
+  </div>
+  <div id="divbox"style="float:left">
+    <h2>Pool C</h2>
+
+        <table style="display:inline-table"class="pool c" id="c">
+      <tr>
+          <th>Team</th>
+          <th>Person</th>
+      </tr>
+          <td>England</td>
+          <td>Mark</td>
+      </tr>
+          <td>France</td>
+          <td>Josh</td>
+      </tr>
+          <td>Argentina</td>
+          <td>Stacie</td>
+      </tr>
+          <td>USA</td>
+          <td>Ben</td>
+      </tr>
+          <td>Tonga</td>
+          <td>Paul</td>
+      </tr>
+    </table>
+  </div>
+  <div id="divbox"style="float:right">
+    <h2>Pool D</h2>
+
+        <table style="display:inline-table"class="pool d" id="d">
+      <tr>
+        <th>Team</th>
+        <th>Person</th>
+      </tr>
+      <tr>
+        <td>Australia</td>
+        <td>Michelle</td>
+      </tr>
+      <td>Wales</td>
+      <td>Gurpreet</td>
+      </tr>
+      <td>Georgia</td>
+      <td>Jack</td>
+      </tr>
+      <td>Fiji</td>
+      <td>Steve S</td>
+      </tr>
+      <td>Uruguay</td>
+      <td>Laura</td>
+      </tr>
+    </table>
+  </div>
+</div>
+</body>
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-path.v1.min.js"></script>
+<script src="https://d3js.org/d3-shape.v1.min.js"></script>
+
+<script>
+  var margin = 10;
+  var height = 500;
+  var width = 500;
+  var svg = d3.select("#chart")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("tranform", "translate(" + margin + ")");
+
+  d3.csv("data.csv", function(data) {
+    data.forEach(function(d) {
+      team = +d.team;
+      person = +d.person;
+      pool = +d.pool;
+
+      for (var i = 0; i < d.pool.length; i++) {
+        console.log(d.pool[i])
+        if ("#" + [i] == d.pool[i]) {
+          d3.select(".pool." + d.pool[i])
+            .selectAll("p")
+            .data(data)
+            .enter()
+            .append("p")
+            .text(function(d) {
+              return d.team
+            })
+        }
+      }
+    })
+  })
+</script>
+
+
+
+
+
+
+
+
+
+
+</html>
